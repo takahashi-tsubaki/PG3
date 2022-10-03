@@ -8,10 +8,14 @@ int Recursive(int n,int hour,int maxHour)
 	{
 		return n;
 	}
-	//2ŠÔ–ÚˆÈ~‚Ì‹‹
-	for (int i = 0; i < hour; i++)
+	else
 	{
-		n = ((n * 2) - 50);
+		//2ŠÔ–ÚˆÈ~‚Ì‹‹
+		for (int i = 1; i < hour; i++)
+		{
+			n = ((n * 2) - 50);
+		}
+
 	}
 	
 	return n;
