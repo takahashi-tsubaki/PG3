@@ -7,9 +7,9 @@ Type Min(Type a, Type b)
 {
 	if (a >= b)
 	{
-		return a;
+		return b;
 	}
-	return b;
+	return a;
 }
 
 //ƒeƒ“ƒvƒŒ‰ğœ
