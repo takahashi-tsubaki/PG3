@@ -13,7 +13,7 @@ int Recursive(int n,int hour,int maxHour)
 		//2時間目以降の時給
 		for (int i = 1; i < hour; i++)
 		{
-			n = ((n * 2) - 50);
+			n = n+((n * 2) - 50);
 		}
 
 	}
@@ -30,11 +30,11 @@ void comparison(int flat,int rec)
 	n = abs(n);
 	if (flat > rec)
 	{
-		printf("一般のほうが%d円高い。\n",n);
+		printf("一般のほうが%d円高い。\n\n",n);
 	}
 	else
 	{
-		printf("再帰的のほうが%d円高い。\n", n);
+		printf("再帰的のほうが%d円高い。\n\n", n);
 	}
 }
 
@@ -47,13 +47,15 @@ int main()
 	int result;//結果
 
 	//一般体系賃金
-	int flatWage = 1072;
+	int flatWage = 1072*hour;
+	
 
-	for (int i = 0; i < max; i++)
+	for (int i = 1; i < max; i++)
 	{
-
+		flatWage = 1072 * hour;
 		result = Recursive(n, hour, max);
-		printf("%d時間の給料 = %d\n", hour, result);
+		printf("一般   : %d時間の給料 = %d\n", hour, flatWage);
+		printf("再帰的 : %d時間の給料 = %d\n", hour, result);
 		hour++;
 
 		comparison(flatWage, result);
