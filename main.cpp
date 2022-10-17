@@ -49,11 +49,11 @@ int main()
 	//ˆê”Ê‘ÌŒn’À‹à
 	int flatWage = 1072*hour;
 	
-
+	result = Recursive(n, hour, max);
 	for (int i = 1; i < max; i++)
 	{
 		flatWage = 1072 * hour;
-		result = Recursive(n, hour, max);
+		
 		printf("ˆê”Ê   : %dŽžŠÔ‚Ì‹‹—¿ = %d\n", hour, flatWage);
 		printf("Ä‹A“I : %dŽžŠÔ‚Ì‹‹—¿ = %d\n", hour, result);
 		hour++;
