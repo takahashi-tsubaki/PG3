@@ -1,56 +1,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//比較関数
-void comparison(int flat, int rec)
-{
-	//一般時給と再帰的な時給を比較する
-	int n = flat - rec;
-	//絶対値をとる
-	n = abs(n);
-	if (flat > rec)
-	{
-		printf("一般のほうが%d円高い。\n\n", n);
-	}
-	else
-	{
-		printf("再帰的のほうが%d円高い。\n\n", n);
-	}
-}
-//一般的な賃金体系関数
-int FlatSalary(int FlatWage, int time)
-{
-	return FlatWage * time;
-}
+
 //再帰的な賃金体系関数
-int RecursiveSalary(int salary, int time,int flatWage)
+int RecursiveSalary(int salary,int previous)
 {
-	//一般的な賃金
-	FlatSalary(flatWage, time);
-
-	printf("一般　 : %d時間の給料 = %d\n", time, flatWage);
-	printf("再帰的 : %d時間の給料 = %d\n", time, salary);
-	//比較
-	comparison(flatWage, salary);
-	if(salary>1072)
+	if (previous < salary)
 	{
-		return printf("%d時間で上回った\n", time);
+		return salary;
+	}
+	return RecursiveSalary(salary*2-50, previous);
+}
+//比較関数
+void comparison()
+{
+	int rec = 100;//
+	int oldRec = 0;
+	int oneDays = 24;
+	//一般体系賃金
+	int flat = 1072;
+	int totalFlat = 0;
+	//比較
+	for (int i = 1; i < oneDays; i++)
+	{
+		totalFlat = flat*i;
+		oldRec = RecursiveSalary(rec, oldRec);
+		printf("一般　 : %d時間の給料 = %d\n", i, totalFlat);
+		printf("再帰的 : %d時間の給料 = %d\n", i, oldRec);
+
+		//一般時給と再帰的な時給を比較する
+		int n = totalFlat - oldRec;
+		//絶対値をとる
+		n = abs(n);
+		if (totalFlat > oldRec)
+		{
+			printf("一般のほうが%d円高い。\n\n", n);
+		}
+		else
+		{
+			printf("再帰的のほうが%d円高い。\n\n", n);
+			printf("%d時間で再帰的な賃金が上回る。\n\n", i);
+			//再帰的のほうが上回った場合は比較をやめる
+			break;
+		}
+
 	}
 	
-	
-	time++;
-	return RecursiveSalary(salary*2 - 50, time, flatWage);
 }
-
 
 int main()
 {
-	int salary = 100;//
-	int hour = 1;//時間
-	//一般体系賃金
-	int flatWage = 1072;
-	
-	RecursiveSalary(salary, hour,flatWage);
-	
+	//賃金比較
+	comparison();
 	return 0;
 }
