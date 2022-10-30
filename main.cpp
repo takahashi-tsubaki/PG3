@@ -1,53 +1,69 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <random>
-int RandomNumber(int num)
-{
-	if (num % 2 == 0)
-	{
-		num = rand() + 1;
-	}
-	else
-	{
-		num = rand();
-	}
+#include"windows.h"
 
-	return num;
+typedef void (*pFunc)(int*);
+void callBack(int* s);
+void setTimeout(pFunc p, int second);
+int Scanf(int num);
+void lottery(int num);
+int main()
+{
+	int num = 0;
+	pFunc p;
+
+	Scanf(num);
+	p = callBack;
+	setTimeout(p, 3);
+	num = num;
+
+	lottery(num);
+
+	return 0;
+}
+
+void callBack(int* s)
+{
+	printf("%d秒後に実行されるよ\n", *s);
+}
+void setTimeout(pFunc p, int second)
+{
+	Sleep(second * 1000);
+
+	p(&second);
 }
 
 int Scanf(int num)
 {
-	char str[5];
-	if (scanf("%s", str) == '偶数')
+	int scanNum = 0;
+	scanf_s("%d", &scanNum);
+	if (scanNum % 2 == 0)
 	{
-		num %= 0;
+		printf("偶数\n");
 	}
-	else if(scanf("%s", str) == '奇数')
+	else if (scanNum % 2 == 1)
 	{
-		num %= 1;
+		printf("奇数\n");
+	}
+	
+	return scanNum;
+}
+
+
+void lottery(int num)
+{
+	srand(time(nullptr));
+	int lotNum = rand() % 6 + 1;
+	printf("さいころの目 = %d\n", lotNum);
+	if ((num % 2 == 0&&lotNum % 2 == 0 ) || (num % 2 == 1&&lotNum % 2 == 1 ))
+	{
+		printf("当たり\n");
 	}
 	else
 	{
-		printf("もう一度入力してください");
+		printf("ハズレ\n");
 	}
-	return num;
 }
 
-int main()
-{
-	
-	int outputNum = 0;
 
-	int(*calc)(int);
-
-	calc = Scanf;
-	printf("%d", calc(outputNum));
-
-	calc = RandomNumber;
-	printf("%d", calc(outputNum));
-
-
-	printf("main = %p\n", main);
-	
-	return 0;
-}
