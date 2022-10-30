@@ -1,65 +1,69 @@
 #include <stdio.h>
 #include <stdlib.h>
-//再帰的な賃金体系関数
-int Recursive(int n,int hour,int maxHour)
-{
-	//最初の1時間
-	if (hour == 1)
-	{
-		return n;
-	}
-	else
-	{
-		//2時間目以降の時給
-		for (int i = 1; i < hour; i++)
-		{
-			n = n+((n * 2) - 50);
-		}
+#include <random>
+#include"windows.h"
 
-	}
-	
-	return n;
-}
-
-//比較関数
-void comparison(int flat,int rec)
-{
-	//一般時給と再帰的な時給を比較する
-	int n = flat - rec;
-	//絶対値をとる
-	n = abs(n);
-	if (flat > rec)
-	{
-		printf("一般のほうが%d円高い。\n\n",n);
-	}
-	else
-	{
-		printf("再帰的のほうが%d円高い。\n\n", n);
-	}
-}
-
+typedef void (*pFunc)(int*);
+void callBack(int* s);
+void setTimeout(pFunc p, int second);
+int Scanf(int num);
+void lottery(int num);
 int main()
 {
-	
-	int n = 100;//
-	int hour = 1;//時間
-	int max = 8;//最大
-	int result;//結果
+	int num = 0;
+	pFunc p;
 
-	//一般体系賃金
-	int flatWage = 1072*hour;
-	
-	result = Recursive(n, hour, max);
-	for (int i = 1; i < max; i++)
-	{
-		flatWage = 1072 * hour;
-		
-		printf("一般   : %d時間の給料 = %d\n", hour, flatWage);
-		printf("再帰的 : %d時間の給料 = %d\n", hour, result);
-		hour++;
+	Scanf(num);
+	p = callBack;
+	setTimeout(p, 3);
+	num = num;
 
-		comparison(flatWage, result);
-	}
-	
+	lottery(num);
+
 	return 0;
 }
+
+void callBack(int* s)
+{
+	printf("%d秒後に実行されるよ\n", *s);
+}
+void setTimeout(pFunc p, int second)
+{
+	Sleep(second * 1000);
+
+	p(&second);
+}
+
+int Scanf(int num)
+{
+	int scanNum = 0;
+	scanf_s("%d", &scanNum);
+	if (scanNum % 2 == 0)
+	{
+		printf("偶数\n");
+	}
+	else if (scanNum % 2 == 1)
+	{
+		printf("奇数\n");
+	}
+	
+	return scanNum;
+}
+
+
+void lottery(int num)
+{
+	srand(time(nullptr));
+	int lotNum = rand() % 6 + 1;
+	printf("さいころの目 = %d\n", lotNum);
+	if ((num % 2 == 0&&lotNum % 2 == 0 ) || (num % 2 == 1&&lotNum % 2 == 1 ))
+	{
+		printf("当たり\n");
+	}
+	else
+	{
+		printf("ハズレ\n");
+	}
+}
+
+
