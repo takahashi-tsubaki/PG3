@@ -4,7 +4,7 @@
 #include"windows.h"
 
 typedef void (*pFunc)(int*);
-void callBack(int* s);
+void DisplayResult(int* s);
 void setTimeout(pFunc p, int second);
 int Scanf(int num);
 void lottery(int num);
@@ -14,7 +14,7 @@ int main()
 	pFunc p;
 
 	Scanf(num);
-	p = callBack;
+	p = DisplayResult;
 	setTimeout(p, 3);
 	num = num;
 
@@ -23,7 +23,7 @@ int main()
 	return 0;
 }
 
-void callBack(int* s)
+void DisplayResult(int* s)
 {
 	printf("%dïbå„Ç…é¿çsÇ≥ÇÍÇÈÇÊ\n", *s);
 }
