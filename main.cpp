@@ -1,69 +1,63 @@
+#include <functional>
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <random>
 #include"windows.h"
 
-typedef void (*pFunc)(int*);
-void callBack(int* s);
-void setTimeout(pFunc p, int second);
-int Scanf(int num);
-void lottery(int num);
+
 int main()
 {
-	int num = 0;
-	pFunc p;
+	
+	char inputNum;//入力した数字を代入する変数
+	int outputNum = 0;
+	int waitTime = 3;//待ち時間用変数
+	
+	printf("数字を代入してください\n");
+	scanf_s("%c",&inputNum);
+	if (inputNum % 2 == 0)
+	{
+		printf("偶数\n");
+	}
+	else if(inputNum % 2 == 1)
+	{
+		printf("奇数\n");
+	}
 
-	Scanf(num);
-	p = callBack;
-	setTimeout(p, 3);
-	num = num;
+	//抽選関数
+	std::function<int()> lottery = [&outputNum]()
+	{
+		srand(time(nullptr));
+		outputNum = rand()%2;
+		return outputNum;
+	};
 
-	lottery(num);
+	//タイムアウトのセッター
+	std::function<void(std::function<void()>, const int)> setTimeOut = [=](std::function<void()> fx, int time) 
+	{
+		fx(); Sleep(time * 1000); 
+	};
+
+	//比較関数
+	std::function<void(char, int)>compation = [=](char input, int output) {
+		printf("%d\n", output);
+		if (output % 2 == 0)
+		{
+			printf("偶数\n");
+		}
+		else
+		{
+			printf("奇数\n");
+		}
+		input %2 == output ? printf("当たり") : printf("はずれ");
+	};
+
+	setTimeOut(lottery, waitTime);
+
+	compation(inputNum, outputNum);
 
 	return 0;
 }
 
-void callBack(int* s)
-{
-	printf("%d秒後に実行されるよ\n", *s);
-}
-void setTimeout(pFunc p, int second)
-{
-	Sleep(second * 1000);
-
-	p(&second);
-}
-
-int Scanf(int num)
-{
-	int scanNum = 0;
-	scanf_s("%d", &scanNum);
-	if (scanNum % 2 == 0)
-	{
-		printf("偶数\n");
-	}
-	else if (scanNum % 2 == 1)
-	{
-		printf("奇数\n");
-	}
-	
-	return scanNum;
-}
-
-
-void lottery(int num)
-{
-	srand(time(nullptr));
-	int lotNum = rand() % 6 + 1;
-	printf("さいころの目 = %d\n", lotNum);
-	if ((num % 2 == 0&&lotNum % 2 == 0 ) || (num % 2 == 1&&lotNum % 2 == 1 ))
-	{
-		printf("当たり\n");
-	}
-	else
-	{
-		printf("ハズレ\n");
-	}
-}
 
 
