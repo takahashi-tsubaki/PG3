@@ -4,11 +4,17 @@
 template <typename T>
 struct CELL
 {
-	int val_;//値
+	T val_;//値
 	CELL* prev_ = nullptr;//前のセル
 	CELL* next_ = nuolptr;//次のセル
 
-	Create(T val, CELL* prev, CELL* next)
+	CELL()
+	{
+		prev_ = this;
+		next_ = this;
+	}
+
+	CELL(T val, CELL* prev, CELL* next)
 	{
 		val_ = val;
 		prev_ = prev;
@@ -22,27 +28,60 @@ class List
 {
 
 private:
-	CELL* node = nullptr;
+	CELL<T>* node;
 
-	int val = 0;
+	int size_;
 	
 public:
 
 	List()//コンストラクタ
 	{
 		node = new CELL<T>();
+		size_ = 0;
+	}
+
+	~List()//コンストラクタ
+	{
+
 	}
 
 	//指したセルの後ろに値を追加
 	void Add(T val,CELL<T>* cell)
 	{
 		//新規セルの作成
-		CELL<T>* newCell = Create<T>*(val,cell,cell->next_);
+		CELL<T>* newCell =  new CELL<T>* (val, cell, cell->next_);
 		cell->prev_ = newCell;
 		cell = newCell;
-		
+		size_++;
+	}
+
+	//一番前に追加
+	void push_front(T val)
+	{
+		CELL<T>* cur = node;
+		add(val,cur);
 	}
 	
+	//一番後ろに追加
+	void push_back(T val)
+	{
+		CELL<T>* cur = node->prev_;
+		add(val,cur);
+	}
+
+	//一覧を表示する
+	void dump()
+	{
+		
+
+	}
+
+
+	int size()
+	{
+		return size_;
+	}
+
 	//セルの取得
 	CELL<T> GetCell(int val)
 	{
