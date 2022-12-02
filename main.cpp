@@ -14,6 +14,8 @@ void Edit(List<T>* list, int& operate);
 template<typename T>
 //íœŠÖ”
 void Delete(List<T>* list, int& operate);
+template <typename T>
+void Sort(List<T>* list, int& operate);
 int main()
 {
 	List<std::string>list;
@@ -40,6 +42,7 @@ int main()
 		std::cout << "2.—v‘f‚Ì‘}“ü" << std::endl;
 		std::cout << "3.—v‘f‚Ì•ÒW" << std::endl;
 		std::cout << "4.—v‘f‚Ìíœ" << std::endl;
+		std::cout << "5.—v‘f‚Ì•À‚Ñ‘Ö‚¦(ƒIƒvƒVƒ‡ƒ“)" << std::endl;
 		std::cout << std::endl;
 
 		std::cout << "------------------" << std::endl;
@@ -72,7 +75,12 @@ int main()
 		case 4://—v‘f‚Ìíœ
 			Delete(&list, operate_);
 			break;
-
+		case 5://”CˆÓ‚ÌêŠ‚Æ”CˆÓ‚ÌêŠ‚ğ“ü‚ê‘Ö‚¦
+			Sort(&list, operate_);
+			break;
+		default:
+			operate_ = 0;
+			break;
 		}
 
 	}
@@ -289,5 +297,52 @@ void Delete(List<T>* list, int& operate)
 	else
 	{
 		operate = 4;
+	}
+}
+
+template<typename T>
+void Sort(List<T>* list, int& operate)
+{
+	std::cout << "[—v‘f‚Ì•À‚Ñ‘Ö‚¦]" << std::endl;
+	std::cout << std::endl;
+	std::cout << "•À‚Ñ‘Ö‚¦•û–@‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢" << std::endl;
+	std::cout << "1.¸‡‚Å•À‚Ñ‘Ö‚¦‚é" << std::endl;
+	std::cout << "2.~‡‚Å•À‚Ñ‘Ö‚¦‚é" << std::endl;
+
+	int sortOperation;
+
+	std::cin >> sortOperation;
+
+	switch (sortOperation)
+	{
+	case 1:
+	{
+		list->sortBy(true);
+		std::cout << "ƒŠƒXƒg‚Ì—v‘f‚ğ¸‡‚Å•À‚Ñ‘Ö‚¦‚Ü‚µ‚½" << std::endl;
+	}
+	break;
+	case 2:
+		list->sortBy(false);
+		std::cout << "ƒŠƒXƒg‚Ì—v‘f‚ğ~‡‚Å•À‚Ñ‘Ö‚¦‚Ü‚µ‚½" << std::endl;
+
+		break;
+	default:
+		break;
+	}
+
+	std::cout << std::endl;
+	std::cout << "----------------------------------" << std::endl;
+	std::cout << "9.—v‘f‘€ì‚É–ß‚é" << std::endl;
+
+	std::cin >> operate;
+	system("cls");
+
+	if (operate == 9)
+	{
+		operate = 0;
+	}
+	else
+	{
+		operate = 5;
 	}
 }

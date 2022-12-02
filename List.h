@@ -171,7 +171,7 @@ public:
 		CELL<T>* tmpCell = nullptr;
 		tmpCell = node;
 
-		for (int i = 0; i < num; i++)
+		for (int i = 0; i < num + 1; i++)
 		{
 			tmpCell = tmpCell->next_;
 		}
@@ -187,9 +187,57 @@ public:
 
 	}
 
+	void sortBy(bool flag = true)
+	{
+		CELL<T>* ptr = nullptr;
+
+		CELL<T>* ptr2 = nullptr;
+
+		for (int i = 0; i < size_ ; i++)
+		{
+			ptr = GetCell(i);
+
+			for (int j = size_; j > i; j--)
+			{
+				ptr2 = GetCell(j);
+				if (flag)
+				{
+					if (ptr2->val_ < ptr2->prev_->val_)
+					{
+						T val = ptr2->val_;
+						ChangeValue (ptr2->prev_->val_, j);
+						ChangeValue(val, j - 1);
+					}
+				}
+				else
+				{
+					if (ptr2->val_ > ptr2->prev_->val_)
+					{
+						T val = ptr2->val_;
+						ChangeValue(ptr2->prev_->val_, j);
+						ChangeValue(val, j - 1);
+					}
+				}
+			}
+		}
+	}
+
 	int size()
 	{
 		return size_;
+	}
+
+	CELL<T>* GetCell(int num)
+	{
+		CELL<T>* tmp = node;
+
+		//任意の場所まで移動
+		for (int i = 0; i < num; i++)
+		{
+			tmp = tmp->next_;
+		}
+
+		return tmp;
 	}
 
 	//要素のゲッター
