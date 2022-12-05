@@ -1,62 +1,87 @@
-#include <functional>
-#include <iostream>
 #include <stdio.h>
-#include <stdlib.h>
-#include <random>
-#include"windows.h"
-
+#include <list>
+#include <iostream>
 
 int main()
 {
-	
-	char inputNum;//入力した数字を代入する変数
-	int outputNum = 0;
-	int waitTime = 3;//待ち時間用変数
-	
-	printf("数字を代入してください\n");
-	scanf_s("%c",&inputNum);
-	if (inputNum % 2 == 0)
-	{
-		printf("偶数\n");
-	}
-	else if(inputNum % 2 == 1)
-	{
-		printf("奇数\n");
-	}
+    std::list<const char*> yamanoteStation = {
+       "Tokyo","Kanda","Akihabara","Okatimati","Ueno",
+       "Uguisudani","Nippori","Tabata","Komagome","Sugamo",
+       "Ootuka","Ikebukuro","Mejiro","Takadanobaba","sinokubo",
+       "Shinjuku","Yoyogi","Harajuku","Shibuya","Ebisu","Meguro",
+       "Gotanda","Oosaki","Shinagawa","Tamati","Hamamatutyou",
+       "Shinbasi","Yurakutyou"
+    };
 
-	//抽選関数
-	std::function<int()> lottery = [&outputNum]()
-	{
-		srand(time(nullptr));
-		outputNum = rand()%2;
-		return outputNum;
-	};
+    int num = 0;
 
-	//タイムアウトのセッター
-	std::function<void(std::function<void()>, const int)> setTimeOut = [=](std::function<void()> fx, int time) 
-	{
-		fx(); Sleep(time * 1000); 
-	};
+    std::cout << "1970" << std::endl;
+    for (auto itr = yamanoteStation.begin(); itr != yamanoteStation.end(); ++itr) {
+        if (num > 5)
+        {
+            std::cout << *itr << std::endl;
+            num = 0;
+        }
+        else
+        {
+            std::cout << *itr << ", ";
+            num++;
+        }
+    }
 
-	//比較関数
-	std::function<void(char, int)>compation = [=](char input, int output) {
-		printf("%d\n", output);
-		if (output % 2 == 0)
-		{
-			printf("偶数\n");
-		}
-		else
-		{
-			printf("奇数\n");
-		}
-		input %2 == output ? printf("当たり") : printf("はずれ");
-	};
+    std::cout << std::endl;
 
-	setTimeOut(lottery, waitTime);
+    num = 0;
+    std::cout << "2019" << std::endl;
+    for (auto itr = yamanoteStation.begin(); itr != yamanoteStation.end(); ++itr) {
+        if (*itr == "Tabata") {
+            itr = yamanoteStation.insert(itr, "Nisinippori");
+            ++itr;
+        }
+    }
+    for (auto itr = yamanoteStation.begin(); itr != yamanoteStation.end(); ++itr) {
+        if (num > 5)
+        {
+            std::cout << *itr << std::endl;
+            num = 0;
+        }
+        else
+        {
+            std::cout << *itr << ", ";
+            num++;
+        }
+    }
 
-	compation(inputNum, outputNum);
+    std::cout << "\n" << std::endl;
 
-	return 0;
+    num = 0;
+    std::cout << "2022" << std::endl;
+    for (auto itr = yamanoteStation.begin(); itr != yamanoteStation.end(); ++itr) {
+        if (*itr == "Tamati") {
+            itr = yamanoteStation.insert(itr, "Takanawagettoway");
+            ++itr;
+        }
+    }
+    for (auto itr = yamanoteStation.begin(); itr != yamanoteStation.end(); ++itr) {
+        if (num > 5)
+        {
+            std::cout << *itr << std::endl;
+            num = 0;
+        }
+        else
+        {
+            std::cout << *itr << ", ";
+            num++;
+        }
+        if (*itr == "Yurakutyou")
+        {
+            std::cout << std::endl;
+        }
+    }
+
+    system("pause");
+
+    return 0;
 }
 
 
