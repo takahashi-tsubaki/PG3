@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <iostream>
 #include "SceneManager.h"
+
 int main()
 {
     SceneManager* sceneMan = SceneManager::GetInstance();
