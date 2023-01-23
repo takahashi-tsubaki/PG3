@@ -1,23 +1,32 @@
 #include"windows.h"
 #include <stdio.h>
 #include <iostream>
-#include "SceneManager.h"
+#include "Enemy.h"
+
+using namespace::std;
+
+int Enemy::EnemyCount;
+
 int main()
 {
-    SceneManager* sceneMan = SceneManager::GetInstance();
-   
-    int sceneNum = 0;
-    
-    while (sceneNum < 4)
+    Enemy* enemy1 = new Enemy;
+    Enemy* enemy2 = new Enemy;
+    Enemy* enemy3 = new Enemy;
+    cout << " EnemyCount = " <<Enemy::EnemyCount << endl;
+
+    while (Enemy::EnemyCount > 0)
     {
-        printf("sceneNum = %d\n", sceneNum);
+        Enemy* enemy4 = new Enemy;
+        Enemy* enemy5 = new Enemy;
+        Enemy* enemy6 = new Enemy;
 
-        Sleep(1 * 1000);
+        cout << " EnemyCount = " << Enemy::EnemyCount << endl;
+        Sleep(3 * 1000);
 
-        sceneMan->ChangeScene(sceneNum);
+        enemy1->Destroy();
+
+        cout << " EnemyCount = " << Enemy::EnemyCount << endl;
     }
-
-    system("cls");
     
     system("pause");
     return 0;
