@@ -1,18 +1,28 @@
 #pragma once
 class Enemy
 {
-public://情的メンバ変数
-
-	static int EnemyCount;
-
 public://メンバ関数
 
-	Enemy(){EnemyCount++;}
-	~Enemy(){ EnemyCount--;}
+	Enemy();
+	~Enemy();
+	//初期化
+	void Initialize();
+	//更新
+	void Update();
 
-	void Destroy();
+	//自作メンバ関数
+	void Approach();//接近関数
+	void Shot();//射撃関数
+	void Leave();//離脱関数
+	//シングルトン
+	static Enemy* Getinstance();
+
+private:
+
+	//メンバ関数ポインタテーブル
+	static void (Enemy:: *pFuncTable[])();
 
 private://メンバ変数
-
+	int phase_ = 0;
 };
 
